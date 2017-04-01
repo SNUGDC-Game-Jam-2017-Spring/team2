@@ -1,0 +1,20 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\BottomButton.cs">
+    <Files>
+      <File FileName="Assets\Script\GridItem.cs" Line="1" Column="19" />
+      <File FileName="Assets\Script\GameManager.cs" Line="30" Column="33" />
+      <File FileName="Assets\Script\DATA.cs" Line="1" Column="19" />
+      <File FileName="Assets\Script\DB.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\CSVParser.cs" Line="14" Column="78" />
+      <File FileName="Assets\Script\Act.cs" Line="6" Column="16" />
+      <File FileName="Assets\Script\MainPopUpText.cs" Line="23" Column="29" />
+      <File FileName="Assets\Script\CombineAndReward.cs" Line="67" Column="93" />
+      <File FileName="Assets\BottomButton.cs" Line="26" Column="5" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
