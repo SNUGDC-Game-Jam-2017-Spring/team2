@@ -69,15 +69,17 @@ public class DATA_INFO : DATA
 	
 public class DATA_ACT_ITEM_COMBINATION : DATA
 {
-	public int actID;
-	public int itemID;
-	public int conditionSwitch1ID;
-	public bool conditionSwitch1State;
-	public int rewardKind;
-	public int rewardID;
-	public string discription;
-	public string imgName;
-	public int resultSwitchID;
+	public int actID; //행동인덱스
+	public int itemID; //아이템인덱스
+	public int conditionSwitch1ID; //조건 스위치 번호
+	public bool conditionSwitch1State; //조건 스위치 상태
+	public int rewardKind; //보상종류
+	public int rewardID; //보상 인덱스
+	public string discription; //부가스트링
+	public string catImgName; //고양이 이미지 파일명
+	public string playerImgName; //오브젝트 이미지 파일명
+	public string fxName; //효과음 파일명
+	public int resultSwitchID; //스위치번호
 
 	public DATA_ACT_ITEM_COMBINATION (List<string> strList) : base(strList)
 	{
@@ -88,8 +90,10 @@ public class DATA_ACT_ITEM_COMBINATION : DATA
 		rewardKind = INT(strList [5]);
 		rewardID = INT(strList [6]);
 		discription = strList [7];
-		imgName = strList [8];
-		resultSwitchID = INT(strList [9]);
+		catImgName = strList [8];
+		playerImgName = strList [9];
+		fxName = strList [10];
+		resultSwitchID = INT(strList [11]);
 	}
 }
 
@@ -108,5 +112,17 @@ public class DATA_INFO_COMBINATION : DATA
 		rewardKind = INT(strList [3]);
 		rewardID = INT(strList [4]);
 		discription = strList [5];
+	}
+}
+
+public class DATA_ENDING : DATA
+{
+	public int groupID; //그룹인덱스
+	public string script; //스크립트
+
+	public DATA_ENDING (List<string> strList) : base(strList)
+	{
+		groupID = INT(strList [1]);
+		script = strList [2];
 	}
 }

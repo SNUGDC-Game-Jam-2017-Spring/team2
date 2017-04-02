@@ -70,7 +70,6 @@ public class CombineAndReward : MonoBehaviour {
 		}
 	}
 
-
 	private static CombineReward CombineActItem(DATA_ACT dataAct, DATA_ITEM dataItem) {
 		var combineList = 
 			(from kvp in DB.ACT_ITEM_COMBINATION
@@ -105,7 +104,7 @@ public class CombineAndReward : MonoBehaviour {
 			}
 		}
 		SetSelectedNull ();
-		return new CombineReward (selected.rewardKind, selected.rewardID, selected.discription);
+		return new CombineReward (selected.rewardKind, selected.rewardID, selected.discription, selected.catImgName, selected.playerImgName, selected.fxName);
 	}
 
 	private static CombineReward CombineInfos(DATA_INFO dataInfo1, DATA_INFO dataInfo2) {
@@ -122,10 +121,15 @@ public class CombineAndReward : MonoBehaviour {
 			return null;
 		}
 		SetSelectedNull ();
-		return new CombineReward (selected.rewardKind, selected.rewardID, selected.discription);
+		return new CombineReward (selected.rewardKind, selected.rewardID, selected.discription, null, null, null);
 	}
 
 	private static void SetSelectedNull() {
+		if (dataSelected1.GetType () == typeof(DATA_ACT)) {
+			GameManager.singleton.Button_Act ();
+		} else if (dataSelected1.GetType () == typeof(DATA_ITEM)) {
+			GameManager.singleton.Button_Item ();
+		}
 		dataSelected1 = null;
 		dataSelected2 = null;
 		m_TypeToFixGrid = null;
@@ -139,40 +143,93 @@ public class CombineReward {
 	public int rewardKind;
 	public int rewardID;
 	public string frontAddText;
+	public string catImgSpriteName;
+	public string playerImgSpriteName;
+	public string fxName;
 
-	public CombineReward(int rewardKind, int rewardID, string frontAddText) {
+
+	public CombineReward(int rewardKind, int rewardID, string frontAddText, string catImgSpriteName, string playerImgSpriteName, string fxName) {
 		this.rewardKind = rewardKind;
 		this.rewardID = rewardID;
 		this.frontAddText = frontAddText;
+		this.catImgSpriteName = catImgSpriteName;
+		this.playerImgSpriteName = playerImgSpriteName;
+		this.fxName = fxName;
 	}
 
 	public void AddOrRun() {
-		if (rewardKind == 1) {
+		if (rewardKind != 4) {
+			if (rewardID > 0) {
+				if (rewardKind == 1) {
+					MainPopUpText.singleton.ShowText (frontAddText
+					+ ((GameManager.havingAct [DB.ACT [rewardID]] == false) ? "\n(새 행동 '" + DB.ACT [rewardID].name + "' 획득)" : ""), 5f);
+					GameManager.havingAct [DB.ACT [rewardID]] = true;
+					GameManager.singleton.Button_Act ();
+				} else if (rewardKind == 2) {
+					MainPopUpText.singleton.ShowText (frontAddText
+					+ ((GameManager.havingItem [DB.ITEM [rewardID]] == false) ? "\n(새 아이템 '" + DB.ITEM [rewardID].name + "' 획득)" : ""), 5f);
+					GameManager.havingItem [DB.ITEM [rewardID]] = true;
+					GameManager.singleton.Button_Item ();
+				} else if (rewardKind == 3) {
+					MainPopUpText.singleton.ShowText (frontAddText
+					+ ((GameManager.havingInfo [DB.INFO [rewardID]] == false) ? "\n(새 정보 '" + DB.INFO [rewardID].discription + "' 획득)" : ""), 5f);
+					GameManager.havingInfo [DB.INFO [rewardID]] = true;
+					GameManager.singleton.Button_Info ();
+				} else {
+					MainPopUpText.singleton.ShowText ("[미구현]rewardKind : " + rewardKind + ", rewardID" + rewardID, 5f);
+				}
+			} else {
+				if (string.IsNullOrEmpty (frontAddText)) {
+					MainPopUpText.singleton.ShowText ("아무런 일도 일어나지 않았다.", 5f);
+				} else {
+					MainPopUpText.singleton.ShowText (frontAddText, 5f);
+				}
+			}
+		} else {
+			if (GameManager.havingInfo [DB.INFO[6]]) {
+				EndingPlayer.Play (null, 2f, 1);
+			} else {
+				EndingPlayer.Play (null, 2f, 2);
+			}
+		}
+			if (string.IsNullOrEmpty (playerImgSpriteName)) {
+				CatImage.ApplyImg (catImgSpriteName);
+			} else {
+				CatImage.ApplyImgWithDelay (catImgSpriteName, 0.75f);
+			}
+			PlayerImg.ApplyImg (playerImgSpriteName);
+		
+		/*
+		if (rewardID == 0) {
+			MainPopUpText.singleton.ShowText (frontAddText, 5f);
+			CatImage.ApplyImg (catImgSpriteName);
+			PlayerImg.ApplyImg (playerImgSpriteName);
+		}else if (rewardKind == 1) {
 			GameManager.havingAct [DB.ACT [rewardID]] = true;
-			MainPopUpText.singleton.ShowText (frontAddText + "\n(새 행동 '" + DB.ACT [rewardID].name + "' 획득)", 5f);
 			GameManager.singleton.Button_Act ();
+			MainPopUpText.singleton.ShowText (frontAddText + "\n(새 행동 '" + DB.ACT [rewardID].name + "' 획득)", 5f);
+			CatImage.ApplyImg (catImgSpriteName);
 		} else if (rewardKind == 2) {
 			GameManager.havingItem [DB.ITEM [rewardID]] = true;
-			MainPopUpText.singleton.ShowText (frontAddText + "\n(새 아이템 '" + DB.ITEM [rewardID].name + "' 획득)", 5f);
 			GameManager.singleton.Button_Item ();
+			MainPopUpText.singleton.ShowText (frontAddText + "\n(새 아이템 '" + DB.ITEM [rewardID].name + "' 획득)", 5f);
+			CatImage.ApplyImg (catImgSpriteName);
 		} else if (rewardKind == 3) {
 			GameManager.havingInfo [DB.INFO [rewardID]] = true;
-			MainPopUpText.singleton.ShowText (frontAddText + "\n(새 정보 '" + DB.INFO [rewardID].discription + "' 획득)", 5f);
 			GameManager.singleton.Button_Info ();
+			MainPopUpText.singleton.ShowText (frontAddText + "\n(새 정보 '" + DB.INFO [rewardID].discription + "' 획득)", 5f);
+			CatImage.ApplyImg (catImgSpriteName);
 		} else {
 			MainPopUpText.singleton.ShowText ("[미구현]rewardKind : "+rewardKind+", rewardID"+rewardID, 5f);
 		}
+		*/
 	}
 
 	public static void AddOrRunIfNotNull(CombineReward cr) {
 		//string disText = 
 		if (cr == null) {
 			MainPopUpText.singleton.ShowText ("아무런 일도 일어나지 않았다.", 5f);
-		}else if (cr.rewardID == 0) {
-			//MainPopUpText.singleton.ShowText (frontAddText + "\n(아무런 일도 일어나지 않았다.)", 5f);
-			MainPopUpText.singleton.ShowText (cr.frontAddText, 5f);
 		} else {
-			//MainPopUpText.singleton.ShowText
 			cr.AddOrRun ();
 		}
 	}

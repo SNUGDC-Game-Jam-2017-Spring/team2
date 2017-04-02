@@ -22,6 +22,8 @@ public class DB : MonoBehaviour {
 	public static Dictionary<int, DATA_ACT_ITEM_COMBINATION> ACT_ITEM_COMBINATION { get{ FillDataIfRequired (); return m_ACT_ITEM_COMBINATION; }}
 	private static Dictionary<int, DATA_INFO_COMBINATION> m_INFO_COMBINATION;
 	public static Dictionary<int, DATA_INFO_COMBINATION> INFO_COMBINATION { get{ FillDataIfRequired (); return m_INFO_COMBINATION; }}
+	private static Dictionary<int, DATA_ENDING> m_INFO_ENDING;
+	public static Dictionary<int, DATA_ENDING> INFO_ENDING { get{ FillDataIfRequired (); return m_INFO_ENDING; }}
 
 	private static void FillDataIfRequired() {
 		if (m_ACT == null) {
@@ -30,6 +32,7 @@ public class DB : MonoBehaviour {
 			m_INFO = CSVParser.FindCSVAndParse<DATA_INFO> ();
 			m_ACT_ITEM_COMBINATION = CSVParser.FindCSVAndParse<DATA_ACT_ITEM_COMBINATION> ();
 			m_INFO_COMBINATION = CSVParser.FindCSVAndParse<DATA_INFO_COMBINATION> ();
+			m_INFO_ENDING = CSVParser.FindCSVAndParse<DATA_ENDING> ();
 		}
 	}
 
