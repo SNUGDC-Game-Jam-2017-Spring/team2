@@ -1,13 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\EndingPlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\CombineAndReward.cs">
     <Files>
-      <File FileName="Assets\Script\DATA.cs" Line="118" Column="25" />
-      <File FileName="Assets\Script\DB.cs" Line="20" Column="69" />
-      <File FileName="Assets\Script\CombineAndReward.cs" Line="181" Column="12" />
-      <File FileName="Assets\Script\GameManager.cs" Line="12" Column="52" />
-      <File FileName="Assets\EndingPlayer.cs" Line="48" Column="44" />
-      <File FileName="Assets\Script\CSVParser.cs" Line="13" Column="72" />
+      <File FileName="Assets\Script\CombineAndReward.cs" Line="196" Column="41" />
+      <File FileName="Assets\Script\DATA.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\DB.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\CSVParser.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\CatImage.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\PlayerImg.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\CatPowerGageImage.cs" Line="1" Column="1" />

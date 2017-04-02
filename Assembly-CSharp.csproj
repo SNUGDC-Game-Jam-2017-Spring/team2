@@ -45,7 +45,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\EndingPlayer.cs" />
      <Compile Include="Assets\Script\Act.cs" />
      <Compile Include="Assets\Script\BottomButton.cs" />
      <Compile Include="Assets\Script\CSVParser.cs" />
@@ -54,6 +53,7 @@
      <Compile Include="Assets\Script\CombineAndReward.cs" />
      <Compile Include="Assets\Script\DATA.cs" />
      <Compile Include="Assets\Script\DB.cs" />
+     <Compile Include="Assets\Script\EndingPlayer.cs" />
      <Compile Include="Assets\Script\GameManager.cs" />
      <Compile Include="Assets\Script\GridItem.cs" />
      <Compile Include="Assets\Script\GridItemFiller.cs" />

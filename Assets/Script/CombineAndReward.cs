@@ -186,18 +186,25 @@ public class CombineReward {
 				}
 			}
 		} else {
-			if (GameManager.havingInfo [DB.INFO[6]]) {
+			if (GameManager.havingInfo [DB.INFO [6]]) {
 				EndingPlayer.Play (null, 2f, 1);
 			} else {
 				EndingPlayer.Play (null, 2f, 2);
 			}
 		}
-			if (string.IsNullOrEmpty (playerImgSpriteName)) {
-				CatImage.ApplyImg (catImgSpriteName);
-			} else {
-				CatImage.ApplyImgWithDelay (catImgSpriteName, 0.75f);
-			}
-			PlayerImg.ApplyImg (playerImgSpriteName);
+		if (string.IsNullOrEmpty (playerImgSpriteName)) {
+			CatImage.ApplyImg (catImgSpriteName);
+		} else {
+			CatImage.ApplyImgWithDelay (catImgSpriteName, 0.75f);
+		}
+		PlayerImg.ApplyImg (playerImgSpriteName);
+		if (!string.IsNullOrEmpty(fxName)) {
+			//Debug.Log()
+			var clip = Resources.Load<AudioClip> ("Sound/" + fxName);
+			Debug.Log ("AudioClip : " + clip + " " + ("Sound/" + fxName));
+			GameManager.singleton.GetComponent<AudioSource>().clip = clip;
+			GameManager.singleton.GetComponent<AudioSource> ().Play ();
+		}
 		
 		/*
 		if (rewardID == 0) {
