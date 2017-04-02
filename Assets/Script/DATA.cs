@@ -104,6 +104,7 @@ public class DATA_INFO_COMBINATION : DATA
 	public int rewardKind;
 	public int rewardID;
 	public string discription;
+	public string fxName; //효과음 파일명
 
 	public DATA_INFO_COMBINATION (List<string> strList) : base(strList)
 	{
@@ -112,6 +113,7 @@ public class DATA_INFO_COMBINATION : DATA
 		rewardKind = INT(strList [3]);
 		rewardID = INT(strList [4]);
 		discription = strList [5];
+		fxName = strList [6];
 	}
 }
 
@@ -119,10 +121,12 @@ public class DATA_ENDING : DATA
 {
 	public int groupID; //그룹인덱스
 	public string script; //스크립트
+	public string imgName; //이미지 이름
 
 	public DATA_ENDING (List<string> strList) : base(strList)
 	{
 		groupID = INT(strList [1]);
 		script = strList [2];
+		imgName = strList [3];
 	}
 }

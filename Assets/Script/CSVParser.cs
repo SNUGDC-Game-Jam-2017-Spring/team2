@@ -29,6 +29,8 @@ public class CSVParser {
 		string[] csvTextSplited = csvText.Split ('\n');
 		List<string> toReturn = new List<string> ();
 		for (int i = 2; i < csvTextSplited.Length; i++) {
+			csvTextSplited [i].Replace("\n", "");
+			csvTextSplited [i].Replace("\r", "");
 			toReturn.Add (csvTextSplited [i]);
 		}
 		//Debug.Log ("ParseCSVTextToLines toReturn : " + toReturn.Count);

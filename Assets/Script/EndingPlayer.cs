@@ -16,6 +16,7 @@ public class EndingPlayer : MonoBehaviour {
 	bool isPlaying = false;
 	int curTextID = 0;
 	public List<GameObject> toHideList;
+	bool clickedLastFrame = false;
 
 	void Awake() {
 		singleton = this;
@@ -49,8 +50,19 @@ public class EndingPlayer : MonoBehaviour {
 				remainTime -= Time.fixedDeltaTime;
 			}
 			while (curTextID < endingList.Count) {
-			transform.GetChild(0).GetComponent<Text> ().text = endingList [curTextID].script;
-				yield return new WaitForFixedUpdate ();
+			if (string.IsNullOrEmpty (endingList [curTextID].imgName)) {
+				transform.GetChild(0).GetComponent<Text> ().text = endingList [curTextID].script;
+				transform.GetChild (1).GetComponent<Text> ().text = "";
+				transform.GetChild (2).GetComponent<Image> ().sprite = null;
+				transform.GetChild (2).GetComponent<Image> ().color = new Color (1, 1, 1, 0);
+			} else {
+				transform.GetChild(0).GetComponent<Text> ().text = "";
+				transform.GetChild (1).GetComponent<Text> ().text = endingList [curTextID].script;
+				transform.GetChild (2).GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Png/"+endingList [curTextID].imgName);
+				transform.GetChild (2).GetComponent<Image> ().color = new Color (1, 1, 1, 1);
+			}				
+				//yield return new WaitForFixedUpdate ();
+			yield return singleton.StartCoroutine(waitForClick());
 			}
 			isPlaying = false;
 			if (caller != null) caller.EndingEnd ();
@@ -62,8 +74,20 @@ public class EndingPlayer : MonoBehaviour {
 			gameObject.SetActive (false);
 	}
 
+
+	IEnumerator waitForClick() {
+		while (true) {
+			if (clickedLastFrame) {
+				clickedLastFrame = false;
+				break;
+			}
+			yield return new WaitForFixedUpdate ();
+		}
+	}
+
 	public void Click() {
 		curTextID++;
+		clickedLastFrame = true;
 	}
 
 }

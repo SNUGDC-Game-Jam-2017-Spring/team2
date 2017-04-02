@@ -121,10 +121,11 @@ public class CombineAndReward : MonoBehaviour {
 			return null;
 		}
 		SetSelectedNull ();
-		return new CombineReward (selected.rewardKind, selected.rewardID, selected.discription, null, null, null);
+		return new CombineReward (selected.rewardKind, selected.rewardID, selected.discription, null, null, selected.fxName);
 	}
 
-	private static void SetSelectedNull() {
+	private static void SetSelectedNull() {		
+		m_TypeToFixGrid = null;
 		if (dataSelected1.GetType () == typeof(DATA_ACT)) {
 			GameManager.singleton.Button_Act ();
 		} else if (dataSelected1.GetType () == typeof(DATA_ITEM)) {
@@ -132,7 +133,6 @@ public class CombineAndReward : MonoBehaviour {
 		}
 		dataSelected1 = null;
 		dataSelected2 = null;
-		m_TypeToFixGrid = null;
 		MainPopUpText.singleton.ShowNothing ();
 	}
 
@@ -163,18 +163,24 @@ public class CombineReward {
 				if (rewardKind == 1) {
 					MainPopUpText.singleton.ShowText (frontAddText
 					+ ((GameManager.havingAct [DB.ACT [rewardID]] == false) ? "\n(새 행동 '" + DB.ACT [rewardID].name + "' 획득)" : ""), 5f);
-					GameManager.havingAct [DB.ACT [rewardID]] = true;
-					GameManager.singleton.Button_Act ();
+					if (GameManager.havingAct [DB.ACT [rewardID]] == false) {
+						GameManager.havingAct [DB.ACT [rewardID]] = true;
+						GameManager.singleton.Button_Act ();
+					}
 				} else if (rewardKind == 2) {
 					MainPopUpText.singleton.ShowText (frontAddText
 					+ ((GameManager.havingItem [DB.ITEM [rewardID]] == false) ? "\n(새 아이템 '" + DB.ITEM [rewardID].name + "' 획득)" : ""), 5f);
-					GameManager.havingItem [DB.ITEM [rewardID]] = true;
-					GameManager.singleton.Button_Item ();
+					if (GameManager.havingItem [DB.ITEM [rewardID]] == false) {
+						GameManager.havingItem [DB.ITEM [rewardID]] = true;
+						GameManager.singleton.Button_Item ();
+					}
 				} else if (rewardKind == 3) {
 					MainPopUpText.singleton.ShowText (frontAddText
 					+ ((GameManager.havingInfo [DB.INFO [rewardID]] == false) ? "\n(새 정보 '" + DB.INFO [rewardID].discription + "' 획득)" : ""), 5f);
-					GameManager.havingInfo [DB.INFO [rewardID]] = true;
-					GameManager.singleton.Button_Info ();
+					if (GameManager.havingInfo [DB.INFO [rewardID]] == false) {
+						GameManager.havingInfo [DB.INFO [rewardID]] = true;
+						GameManager.singleton.Button_Info ();
+					}
 				} else {
 					MainPopUpText.singleton.ShowText ("[미구현]rewardKind : " + rewardKind + ", rewardID" + rewardID, 5f);
 				}
@@ -199,7 +205,6 @@ public class CombineReward {
 		}
 		PlayerImg.ApplyImg (playerImgSpriteName);
 		if (!string.IsNullOrEmpty(fxName)) {
-			//Debug.Log()
 			var clip = Resources.Load<AudioClip> ("Sound/" + fxName);
 			Debug.Log ("AudioClip : " + clip + " " + ("Sound/" + fxName));
 			GameManager.singleton.GetComponent<AudioSource>().clip = clip;

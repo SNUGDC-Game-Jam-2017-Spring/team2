@@ -48,17 +48,17 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Button_Act() {
-		
+		Debug.Log ("public void Button_Act() {");
 		Button_Common (havingAct);
 	}
 
 	public void Button_Item() {
-
+		Debug.Log ("public void Button_Item() {");
 		Button_Common (havingItem);
 	}
 
 	public void Button_Info() {
-		
+		Debug.Log ("public void Button_Info() {");
 		Button_Common (havingInfo);
 	}
 
