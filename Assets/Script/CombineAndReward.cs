@@ -204,7 +204,9 @@ public class CombineReward {
 			Debug.Log ("AudioClip : " + clip + " " + ("Sound/" + fxName));
 			GameManager.singleton.GetComponent<AudioSource>().clip = clip;
 			GameManager.singleton.GetComponent<AudioSource> ().Play ();
+			GameManager.singleton.GetBgmLow();
 		}
+		
 		
 		/*
 		if (rewardID == 0) {
@@ -240,6 +242,7 @@ public class CombineReward {
 			cr.AddOrRun ();
 		}
 	}
+	
 
 }
 
